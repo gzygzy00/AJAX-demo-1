@@ -43,10 +43,10 @@ var server = http.createServer(function (request, response) {
     response.setHeader('Content-Type', 'text/css;charset=utf-8')
     response.write(fs.readFileSync('public/style.css'))
     response.end()
-  } else if (path === '/part1.js') {
+  } else if (path === '/qq.js') {
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
-    response.write(fs.readFileSync('public/part1.js'))
+    response.write(fs.readFileSync('public/qq.js'))
     response.end()
   } else if (path === '/part2.html') {
     response.statusCode = 200
@@ -58,16 +58,27 @@ var server = http.createServer(function (request, response) {
     response.setHeader('Content-Type', 'text/xml;charset=utf-8')
     response.write(fs.readFileSync('public/part3.xml'))
     response.end()
-  } else if (path === '/part4.json') {
+  } else if (path === '/friends.json') {
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/json;charset=utf-8')
-    response.write(fs.readFileSync('public/part4.json'))
+    console.log(request.headers['referer'])
+    response.setHeader('Access-Control-Allow-Origin', 'http://dd.com:8888')
+    response.write(fs.readFileSync('public/friends.json'))
     response.end()
-  } else if (path === '/page2.json') {
-    response.statusCode = 200
-    response.setHeader('Content-Type', 'text/json;charset=utf-8')
-    response.write(fs.readFileSync('db/page2.json'))
-    response.end()
+  } else if (path === '/friends.js') {
+    if (request.headers['referer'].indexOf("http://dd.com:8888") === 0) {
+      response.statusCode = 200
+      response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
+      const string = `window['{{xxx}}']({{data}})`
+      const data = fs.readFileSync('./public/friends.json').toString()
+      const string2 = string.replace("{{data}}", data).replace("{{xxx}}", query.callback)
+      response.write(string2)
+      response.end()
+    } else {
+      response.statusCode = 404
+      response.end()
+    }
+
   } else if (path === '/page3.json') {
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/json;charset=utf-8')

@@ -33,20 +33,20 @@ var server = http.createServer(function (request, response) {
     // string = string.replace('{{page1}}', `<ul id="pages">${result}</ul>`)
     response.write(fs.readFileSync('public/index.html'))
     response.end()
-  } else if (path === '/main.js') {
+  } else if (path === '/dd.js') {
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
-    response.write(fs.readFileSync('public/main.js'))
+    response.write(fs.readFileSync('public/dd.js'))
     response.end()
   } else if (path === '/style.css') {
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/css;charset=utf-8')
     response.write(fs.readFileSync('public/style.css'))
     response.end()
-  } else if (path === '/part1.js') {
+  } else if (path === '/friends.js') {
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
-    response.write(fs.readFileSync('public/part1.js'))
+    response.write(fs.readFileSync('public/friends.js'))
     response.end()
   } else if (path === '/part2.html') {
     response.statusCode = 200
@@ -58,10 +58,10 @@ var server = http.createServer(function (request, response) {
     response.setHeader('Content-Type', 'text/xml;charset=utf-8')
     response.write(fs.readFileSync('public/part3.xml'))
     response.end()
-  } else if (path === '/part4.json') {
+  } else if (path === '/friends.json') {
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/json;charset=utf-8')
-    response.write(fs.readFileSync('public/part4.json'))
+    response.write(fs.readFileSync('public/friends.json'))
     response.end()
   } else if (path === '/page2.json') {
     response.statusCode = 200
